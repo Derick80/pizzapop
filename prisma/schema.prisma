@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+id String @id @unique @default(uuid())
+
+  email     String   @unique
+  username      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  password String?
+  userAddresses UserAddress[]
+  orders Order[]
+
+  accounts    Account[]
+  tokens      Token[]
+}
+
+model UserAddress {
+  id String @id @unique @default(uuid())
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+   firstName String
+  lastName String
+  streetAddress String
+  city String
+  state String
+  zipCode String
+  mobilePhone String
+  isDefault Boolean
+  deliveryInstructions String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+
+model Pizza {
+  id String @id @unique @default(uuid())
+  name String
+  description String
+  pizzaImage String
+  toppings Topping[]
+  price Float
+  image String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  OrderItem OrderItem[]
+}
+
+model Starter {
+  id String @id @unique @default(uuid())
+  name String
+  description String
+  image String
+  price Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  OrderItem OrderItem[]
+}
+
+model Drink {
+  id String @id @unique @default(uuid())
+  name String
+  description String
+  image String
+  price Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  orderItem OrderItem[]
+}
+model Topping {
+  id String @id @unique @default(uuid())
+  name String
+  description String
+  image String?
+  price Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  pizza Pizza[]
+
+}
+
+model Order {
+  id String @id @unique @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  orderItems OrderItem[]
+  orderStatus OrderStatus
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model OrderItem {
+  id String @id @unique @default(uuid())
+  orderId String
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pizzaId String
+  pizzas Pizza @relation(fields: [pizzaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  startersId String
+  starters Starter @relation(fields: [startersId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  drinksId String
+  drinks Drink @relation(fields: [drinksId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quantity Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  DELIVERED
+  CANCELLED
+}
+
+model Token {
+  id        String    @id @default(cuid())
+  token     String
+  type      TokenType
+  expiresAt DateTime?
+  sentTo    String?
+  usedAt    DateTime?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([token, type])
+  @@index([userId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  provider          String
+  providerAccountId String
+  refreshToken      String?
+  accessToken       String?
+  expiresAt         Int?
+  userId            String
+  user              User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+enum TokenType {
+  REFRESH_TOKEN
+  VERIFY_EMAIL
+  RESET_PASSWORD
+}
+
