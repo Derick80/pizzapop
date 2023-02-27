@@ -39,7 +39,9 @@ export const AuthForm = ({ authType }: Props) => {
       <input type='hidden' name='redirectTo' value={redirectTo || '/'} />
       <input type='hidden' name='token' value={token || ''} />
 
-     <input type='email' name='email' placeholder='Email' />
+     <input type='email' name='email' placeholder='Email'
+
+     />
       <input type='password' name='password' placeholder='Password' />
       {authType === 'register' && (
         <input type='text' name='username' placeholder='Username' />

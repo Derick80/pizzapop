@@ -48,7 +48,6 @@ model Pizza {
   id String @id @unique @default(uuid())
   name String
   description String
-  pizzaImage String
   toppings Topping[]
   price Float
   image String

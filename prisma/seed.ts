@@ -57,7 +57,123 @@ async function seed() {
     })
   }
 
+  async function seedToopings() {
+    await prisma.topping.createMany({
+       data: [
+         {
+           name: "Pepperoni",
+           price: 1.5,
+           description: "Pepperoni",
+           image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/toppings/pepperoni.png",
+  },
+  {name: 'Mozerella cheese',
+          price: 1.5,
+          description: 'Mozerella cheese',
+          image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/mozcheese.jpg',},
+  {name: 'Mushrooms',
+          price: 1.5,
+          description: 'Mushrooms',
+          image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/mushroom.jpg',},
+  {name: 'Onions',
+          price: 1.5,
+          description: 'Onions',
+          image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/onions.jpg',},
+          {name: 'Red Onions',
+          price: 1.5,
+          description: 'Red Onions',
+          image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/redonion.jpg',},
+  {name: 'Red Sauce',
+          price: 0,
+          description: 'Red Sauce',
+          image:'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/redsauce.jpg',},
+  {name: 'White Sauce',
+          price: 0,
+          description: 'White Sauce',
+          image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/whitesauce.jpg',},
+          {
+            name:'Garlic',
+            price: 1.5,
+            description: 'Garlic',
+            image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/garlic.jpg',
+          },
+          {
+            name: 'Broccoli',
+            price: 1.5,
+            description: 'Broccoli',
+            image: 'https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/Ingredients/brocolli.jpeg',
 
+          }
+        ],
+
+          }
+        )
+      }
+
+      async function seedStarters(){
+        await prisma.starter.createMany({
+           data: [
+             {
+               name: "Mozerella Sticks",
+               price: 1.5,
+               description: "Mozerella Sticks",
+               image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/starters/mozzarellasticks.jpeg",
+      },
+      {
+        name:"Ceasar Salad",
+        price: 1.5,
+        description: "Ceasar Salad",
+        image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/starters/ceaser.jpg",
+      },
+      {
+        name:"Chicken Fingers",
+        price: 10.5,
+        description: "Chicken Fingers",
+        image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/starters/chickenfingers.jpeg",
+
+      }
+
+    ]
+  })
+      }
+
+      async function seedPizzas(){
+        await prisma.pizza.createMany({
+            data: [
+              {
+                name: "Chicago Style",
+                price: 15.0,
+                description: "Chicago Style",
+                image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/pizzas/chicagostyle.jpeg",
+              },
+              {
+                name: "New York Style",
+                price: 15.0,
+                description: "New York Style",
+                image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/pizzas/nycstyle.jpg",
+              },
+              {
+                name: "Detroit Style",
+                price: 15.0,
+                description: "Detroit Style",
+                image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/pizzas/detroitstyle.png",
+              },
+              {
+                name: "Greek Style",
+                price: 15.0,
+                description: "Greek Style",
+                image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/pizzas/greek-pizza.webp",
+
+              },
+              {
+                name: "Thin Crust",
+                price: 15.0,
+                description: "Thin Crust",
+                image: "https://remixpizza.s3.us-east-2.amazonaws.com/Pizza/pizzas/thincrust.jpg",
+
+              }
+            ]
+          })
+      }
 
     console.log(`Database has been seeded. 🌱`);
 
@@ -67,6 +183,8 @@ async function seed() {
 seed()
   .then(async () => {
     await seedDrinks();
+    await seedToopings();
+    await seedStarters();
   })
   .catch((e) => {
     console.error(e);

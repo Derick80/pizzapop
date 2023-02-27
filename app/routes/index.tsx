@@ -21,7 +21,7 @@ export default function Index() {
               Pizza Pop
             </h1>
           </nav>
-      <h1>Welcome to Remix</h1>
+      <h1>Welcome to Pizza Pop</h1>
       {user && <>
       <p
         className='text-center text-sm italic'
@@ -30,38 +30,6 @@ export default function Index() {
         <p>You are logged in as {user.email}</p>
       </>}
       <ul>
-        <li>
-          <a
-            target='_blank'
-            href='https:github.com/Derick80/sonic-death'
-            rel='noreferrer'
-          >
-            Template Repository
-          </a>
-        </li>
-        <li>
-          <a target='_blank' href='https://remix.run/docs' rel='noreferrer'>
-            Remix Docs
-          </a>
-        </li>
-        <li>
-          <a target='_blank' href='https://icons.radix-ui.com/' rel='noreferrer'>
-            Radix Icons
-          </a>
-
-        </li>
-        <li>
-          <a target='_blank' href='https://tailwindcss.com/' rel='noreferrer'>
-            Tailwind CSS
-          </a>
-
-        </li>
-        <li>
-          <a target='_blank' href='https://prisma.io/' rel='noreferrer'>
-            Prisma
-          </a>
-
-        </li>
         <li>
           {user ? (
             <Form
